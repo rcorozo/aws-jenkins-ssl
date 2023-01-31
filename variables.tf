@@ -3,7 +3,7 @@ variable "region" {
 }
 
 variable "instance_type" {
-    default     = "t4g.micro"
+    default     = "t3.micro"
 }
 
 variable "instance_name" {
@@ -17,7 +17,7 @@ variable "ami_filter" {
   })
 
   default = {
-    name  = "amzn2-ami-hvm-*-arm64-ebs"
+    name  = "amzn2-ami-hvm-*-x86_64-ebs"
     owner = "amazon"
   }
 }
