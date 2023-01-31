@@ -48,12 +48,11 @@ module "aws_sg" {
 
 
 resource "aws_network_interface" "this" {
-  subnet_id = module.aws_vpc.public_subnets[0]
+  subnet_id       = module.aws_vpc.public_subnets[0]
+  security_groups = [module.aws_sg.security_group_id]
 }
 
 resource "aws_instance" "this" {
-
-  vpc_security_group_ids = [module.aws_sg.security_group_id]
   ami                    = data.aws_ami.app_ami.id
   instance_type          = var.instance_type
 
