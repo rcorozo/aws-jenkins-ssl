@@ -54,7 +54,7 @@ resource "aws_network_interface" "this" {
 resource "aws_instance" "this" {
 
   vpc_security_group_ids = [module.aws_sg.security_group_id]
-  ami                    = data.aws_ami.app_ami
+  ami                    = data.aws_ami.app_ami.id
   instance_type          = var.instance_type
 
   network_interface {
