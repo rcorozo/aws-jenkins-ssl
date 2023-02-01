@@ -51,38 +51,39 @@ resource "aws_network_interface" "this" {
   security_groups = [module.aws_sg.security_group_id]
 }
 
-resource "aws_instance" "this" {
-  ami                    = data.aws_ami.app_ami.id
-  instance_type          = var.instance_type
+# resource "aws_instance" "this" {
+#   ami                    = data.aws_ami.app_ami.id
+#   instance_type          = var.instance_type
 
-  network_interface {
-    network_interface_id = aws_network_interface.this.id
-    device_index         = 0
-  }
+#   network_interface {
+#     network_interface_id = aws_network_interface.this.id
+#     device_index         = 0
+#   }
 
-  user_data = <<EOF
-#!/bin/bash
-#
+#   user_data = <<EOF
+# #!/bin/bash
+# #
 
-# Install NGINX web server
-amazon-linux-extras install nginx1
-systemctl start nginx
-systemctl enable nginx.service
-EOF
+# # Install NGINX web server
+# amazon-linux-extras install nginx1
+# systemctl start nginx
+# systemctl enable nginx.service
+# EOF
 
-  tags = {
-    Terraform = "true"
-    Name      = "${var.environment.name}-${var.instance_name}"
-  }
-}
+#   tags = {
+#     Terraform = "true"
+#     Name      = "${var.environment.name}-${var.instance_name}"
+#   }
+# }
 
 resource "namecheap_domain_records" "this" {
   domain = var.my_domain
   mode = "MERGE"
 
   record {
-    hostname = "pruebas"
-    type = "A"
-    address = aws_instance.this.public_ip
+      hostname = "pruebas"
+      type     = "A"
+    # address  = aws_instance.this.public_ip
+      adress   = 142.250.217.163
   }
 }
