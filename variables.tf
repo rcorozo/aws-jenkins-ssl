@@ -34,16 +34,8 @@ variable "environment" {
   }
 }
 
-variable "asg_sizes" {
-  description = "Min and max ASG sizes"
+variable "my_domain" {}
 
-  type = object({
-    min_size = number
-    max_size = number
-  })
+variable "my_api_key" {}
 
-  default = {
-      min_size = 1
-      max_size = 2
-  }
-}
+variable "my_username" {}

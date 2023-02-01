@@ -46,7 +46,6 @@ module "aws_sg" {
   egress_cidr_blocks = ["0.0.0.0/0"]
 }
 
-
 resource "aws_network_interface" "this" {
   subnet_id       = module.aws_vpc.public_subnets[0]
   security_groups = [module.aws_sg.security_group_id]
@@ -65,9 +64,8 @@ resource "aws_instance" "this" {
 #!/bin/bash
 #
 
-# Install
-yum check-update
-yum install nginx -y
+# Install NGINX web server
+amazon-linux-extras install nginx1
 systemctl start nginx
 systemctl enable nginx.service
 EOF
@@ -75,5 +73,16 @@ EOF
   tags = {
     Terraform = "true"
     Name      = "${var.environment.name}-${var.instance_name}"
+  }
+}
+
+resource "namecheap_domain_records" "this" {
+  domain = var.my_domain
+  mode = "MERGE"
+
+  record {
+    hostname = "pruebas"
+    type = "A"
+    address = aws_instance.this.public_ip
   }
 }
