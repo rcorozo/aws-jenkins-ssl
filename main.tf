@@ -84,6 +84,6 @@ resource "namecheap_domain_records" "this" {
       hostname = "pruebas"
       type     = "A"
     # address  = aws_instance.this.public_ip
-      adress   = 142.250.217.163
+      address   = "142.250.217.163"
   }
 }
